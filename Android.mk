@@ -16,7 +16,7 @@ LOCAL_SRC_FILES := \
     monitor_fdpass.c rijndael.c ssh-dss.c ssh-ecdsa.c ssh-rsa.c dh.c \
     kexdh.c kexgex.c kexdhc.c kexgexc.c bufec.c kexecdh.c kexecdhc.c \
     msg.c progressmeter.c dns.c entropy.c gss-genr.c umac.c jpake.c \
-    schnorr.c ssh-pkcs11.c roaming_dummy.c \
+    schnorr.c obfuscate.c ssh-pkcs11.c roaming_dummy.c \
     openbsd-compat/strtonum.c openbsd-compat/bsd-misc.c \
     openbsd-compat/timingsafe_bcmp.c openbsd-compat/bsd-getpeereid.c \
     openbsd-compat/readpassphrase.c openbsd-compat/vis.c \

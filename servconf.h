@@ -168,6 +168,10 @@ typedef struct {
 	char   *authorized_principals_file;
 
 	char   *version_addendum;	/* Appended to SSH banner */
+
+	int obfuscated_ports[MAX_PORTS];
+	u_int num_obfuscated_ports;
+	char *obfuscate_keyword;
 }       ServerOptions;
 
 /* Information about the incoming connection as used by Match */

@@ -1,5 +1,7 @@
 LOCAL_PATH:= $(call my-dir)
 
+OPENSSL_DIR := jni/openssl
+
 ###################### libssh ######################
 include $(CLEAR_VARS)
 
@@ -32,16 +34,14 @@ LOCAL_SRC_FILES := \
 #    openbsd-compat/getrrsetbyname.c
 #    openbsd-compat/xcrypt.c 
 
-LOCAL_C_INCLUDES := external/openssl/include external/zlib
-PRIVATE_C_INCLUDES := external/openssl/openbsd-compat
-
-LOCAL_SHARED_LIBRARIES += libssl libcrypto libdl libz
+LOCAL_C_INCLUDES := $(OPENSSL_DIR)/include
+PRIVATE_C_INCLUDES := $(OPENSSL_DIR)/openbsd-compat
 
 LOCAL_MODULE := libssh
 
 LOCAL_CFLAGS+=-O3
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
 
 ###################### ssh ######################
 
@@ -54,12 +54,13 @@ LOCAL_SRC_FILES := \
     sshconnect.c sshconnect1.c sshconnect2.c mux.c \
     roaming_common.c roaming_client.c
 
-LOCAL_MODULE := ssh
+LOCAL_MODULE := openssh
 
-LOCAL_C_INCLUDES := external/openssl/include
-PRIVATE_C_INCLUDES := external/openssl/openbsd-compat
+LOCAL_C_INCLUDES := $(OPENSSL_DIR)/include
+PRIVATE_C_INCLUDES := $(OPENSSL_DIR)/openbsd-compat
 
-LOCAL_SHARED_LIBRARIES += libssh libssl libcrypto libdl libz
+LOCAL_STATIC_LIBRARIES += libssh libssl libcrypto
+LOCAL_LDLIBS := -ldl -lz
 
 include $(BUILD_EXECUTABLE)
 
@@ -79,7 +80,7 @@ PRIVATE_C_INCLUDES := external/openssl/openbsd-compat
 
 LOCAL_SHARED_LIBRARIES += libssh libssl libcrypto libdl libz
 
-include $(BUILD_EXECUTABLE)
+#include $(BUILD_EXECUTABLE)
 
 ###################### scp ######################
 
@@ -97,7 +98,7 @@ PRIVATE_C_INCLUDES := external/openssl/openbsd-compat
 
 LOCAL_SHARED_LIBRARIES += libssh libssl libcrypto libdl libz
 
-include $(BUILD_EXECUTABLE)
+#include $(BUILD_EXECUTABLE)
 
 ###################### sshd ######################
 
@@ -131,7 +132,7 @@ PRIVATE_C_INCLUDES := external/openssl/openbsd-compat
 
 LOCAL_SHARED_LIBRARIES += libssh libssl libcrypto libdl libz
 
-include $(BUILD_EXECUTABLE)
+#include $(BUILD_EXECUTABLE)
 
 ###################### ssh-keygen ######################
 
@@ -149,7 +150,7 @@ PRIVATE_C_INCLUDES := external/openssl/openbsd-compat
 
 LOCAL_SHARED_LIBRARIES += libssh libssl libcrypto libdl libz
 
-include $(BUILD_EXECUTABLE)
+#include $(BUILD_EXECUTABLE)
 
 ###################### sshd_config ######################
 
@@ -159,7 +160,7 @@ LOCAL_MODULE := sshd_config
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/ssh
 LOCAL_SRC_FILES := sshd_config.android
-include $(BUILD_PREBUILT)
+#include $(BUILD_PREBUILT)
 
 ###################### start-ssh ######################
 
@@ -168,4 +169,4 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := start-ssh
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_SRC_FILES := start-ssh
-include $(BUILD_PREBUILT)
+#include $(BUILD_PREBUILT)

@@ -28,8 +28,8 @@
 #include "xmalloc.h"
 
 #ifdef ANDROID
-#include <private/android_filesystem_config.h>
-#include <sys/capability.h>
+#include "android_filesystem_config.h"
+#include <linux/capability.h>
 #include <linux/prctl.h>
 #endif
 
